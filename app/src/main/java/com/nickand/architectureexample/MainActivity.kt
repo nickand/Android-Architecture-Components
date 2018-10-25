@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         noteViewModel!!.getAllNotes().observe(this, Observer {
             //update RecyclerView
             if (!it!!.isEmpty()) {
-                adapter.setNotes(it)
+                adapter.submitList(it)
             } else {
                 Toast.makeText(this@MainActivity, "Notes empty", Toast.LENGTH_SHORT).show()
             }
