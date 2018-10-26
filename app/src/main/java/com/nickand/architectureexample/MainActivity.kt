@@ -37,11 +37,10 @@ class MainActivity : AppCompatActivity() {
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         noteViewModel!!.getAllNotes().observe(this, Observer {
             //update RecyclerView
-            if (!it!!.isEmpty()) {
-                adapter.submitList(it)
-            } else {
+            if (it!!.isEmpty()) {
                 Toast.makeText(this@MainActivity, "Notes empty", Toast.LENGTH_SHORT).show()
             }
+            adapter.submitList(it)
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,
