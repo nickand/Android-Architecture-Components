@@ -1,7 +1,8 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.db.dao
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import com.nickand.architectureexample.db.entity.Note
 
 /**
  * Created by Nicolas on 20/10/2018.

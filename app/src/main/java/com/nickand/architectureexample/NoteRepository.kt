@@ -3,6 +3,9 @@ package com.nickand.architectureexample
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import com.nickand.architectureexample.db.dao.NoteDao
+import com.nickand.architectureexample.db.NoteDatabase
+import com.nickand.architectureexample.db.entity.Note
 
 
 /**

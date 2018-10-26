@@ -1,4 +1,4 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Toast
+import com.nickand.architectureexample.R
 
 class AddEditNoteActivity : AppCompatActivity() {
 

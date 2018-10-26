@@ -1,4 +1,4 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.ui
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.nickand.architectureexample.R
+import com.nickand.architectureexample.db.entity.Note
 
 
 /**

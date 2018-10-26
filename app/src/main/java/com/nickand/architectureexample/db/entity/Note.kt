@@ -1,4 +1,4 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.db.entity
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

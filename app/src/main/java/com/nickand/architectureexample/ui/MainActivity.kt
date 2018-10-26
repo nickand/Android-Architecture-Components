@@ -1,4 +1,4 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -12,6 +12,9 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.nickand.architectureexample.viewmodel.NoteViewModel
+import com.nickand.architectureexample.R
+import com.nickand.architectureexample.db.entity.Note
 
 
 class MainActivity : AppCompatActivity() {

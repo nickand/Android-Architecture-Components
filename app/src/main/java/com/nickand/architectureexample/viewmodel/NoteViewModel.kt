@@ -1,8 +1,10 @@
-package com.nickand.architectureexample
+package com.nickand.architectureexample.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import com.nickand.architectureexample.NoteRepository
+import com.nickand.architectureexample.db.entity.Note
 
 /**
  * Created by Nicolas on 20/10/2018.
