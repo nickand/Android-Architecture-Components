@@ -19,37 +19,56 @@ class NoteRepository(application: Application) {
     }
 
     fun insert(note: Note) {
-        GeneralAsyncTask(noteDao) { noteDao ->
-            noteDao.insert(note)
-        }
+        InsertNoteAsyncTask(noteDao).execute(note)
     }
 
     fun update(note: Note) {
-        GeneralAsyncTask(noteDao) { noteDao ->
-            noteDao.update(note)
-        }
+        UpdateNoteAsyncTask(noteDao).execute(note)
     }
 
     fun delete(note: Note) {
-        GeneralAsyncTask(noteDao) { noteDao ->
-            noteDao.delete(note)
-        }
+        DeleteNoteAsyncTask(noteDao).execute(note)
     }
 
     fun deleteAllNotes() {
-        GeneralAsyncTask(noteDao) { noteDao ->
-            noteDao.deleteAllNotes()
-        }
+        DeleteAllNotesAsyncTask(noteDao).execute()
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
         return allNotes
     }
 
-    private class GeneralAsyncTask internal constructor(val note: NoteDao, val action: (NoteDao) -> Unit) :
-            AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg p0: Void?): Void? {
-            action(note)
+    private class InsertNoteAsyncTask internal constructor(private val noteDao: NoteDao) :
+            AsyncTask<Note, Void, Void>() {
+
+        override fun doInBackground(vararg notes: Note): Void? {
+            noteDao.insert(notes[0])
+            return null
+        }
+    }
+
+    private class UpdateNoteAsyncTask internal constructor(private val noteDao: NoteDao) :
+            AsyncTask<Note, Void, Void>() {
+
+        override fun doInBackground(vararg notes: Note): Void? {
+            noteDao.update(notes[0])
+            return null
+        }
+    }
+
+    private class DeleteNoteAsyncTask internal constructor(private val noteDao: NoteDao) :
+            AsyncTask<Note, Void, Void>() {
+
+        override fun doInBackground(vararg notes: Note): Void? {
+            noteDao.delete(notes[0])
+            return null
+        }
+    }
+
+    private class DeleteAllNotesAsyncTask internal constructor(private val noteDao: NoteDao) : AsyncTask<Void, Void, Void>() {
+
+        override fun doInBackground(vararg voids: Void): Void? {
+            noteDao.deleteAllNotes()
             return null
         }
     }
