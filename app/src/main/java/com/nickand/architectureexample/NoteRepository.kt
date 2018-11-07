@@ -24,25 +24,25 @@ class NoteRepository(application: Application) {
     fun insert(note: Note) {
         GeneralAsyncTask(noteDao) { noteDao ->
             noteDao.insert(note)
-        }
+        }.execute()
     }
 
     fun update(note: Note) {
         GeneralAsyncTask(noteDao) { noteDao ->
             noteDao.update(note)
-        }
+        }.execute()
     }
 
     fun delete(note: Note) {
         GeneralAsyncTask(noteDao) { noteDao ->
             noteDao.delete(note)
-        }
+        }.execute()
     }
 
     fun deleteAllNotes() {
         GeneralAsyncTask(noteDao) { noteDao ->
             noteDao.deleteAllNotes()
-        }
+        }.execute()
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
