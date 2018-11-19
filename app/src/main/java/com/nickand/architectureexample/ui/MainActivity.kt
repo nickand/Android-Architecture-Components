@@ -1,44 +1,38 @@
 package com.nickand.architectureexample.ui
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.nickand.architectureexample.viewmodel.NoteViewModel
+import com.nickand.architectureexample.BaseActivity
 import com.nickand.architectureexample.R
 import com.nickand.architectureexample.db.entity.Note
+import com.nickand.architectureexample.viewmodel.NoteViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
-    private var noteViewModel: NoteViewModel? = null
+class MainActivity : BaseActivity<NoteViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val buttonAddNote = findViewById<FloatingActionButton>(R.id.button_add_note)
-        buttonAddNote.setOnClickListener {
+        button_add_note.setOnClickListener {
             val intent = Intent(this@MainActivity, AddEditNoteActivity::class.java)
             startActivityForResult(intent, ADD_NOTE_REQUEST)
         }
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.setHasFixedSize(true)
 
         val adapter = NoteAdapter()
-        recyclerView.adapter = adapter
+        recycler_view.adapter = adapter
 
-        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        noteViewModel!!.getAllNotes().observe(this, Observer {
+        viewModel.getAllNotes().observe(this, Observer {
             //update RecyclerView
             if (it!!.isEmpty()) {
                 Toast.makeText(this@MainActivity, "Notes empty", Toast.LENGTH_SHORT).show()
@@ -53,10 +47,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                noteViewModel?.delete(adapter.getNoteAt(viewHolder.adapterPosition))
+                viewModel.delete(adapter.getNoteAt(viewHolder.adapterPosition))
                 Toast.makeText(this@MainActivity, "Note deleted", Toast.LENGTH_SHORT).show()
             }
-        }).attachToRecyclerView(recyclerView)
+        }).attachToRecyclerView(recycler_view)
 
         adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener {
             override fun onItemClick(note: Note) {
@@ -79,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             val priority = data?.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1)
 
             val note = Note(title!!, description!!, priority!!)
-            noteViewModel?.insert(note)
+            viewModel.insert(note)
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show()
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
@@ -96,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
             val note = Note(title!!, description!!, priority!!)
             note.id = id!!
-            noteViewModel?.update(note)
+            viewModel.update(note)
 
             Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show()
 
@@ -114,12 +108,20 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.delete_all_notes -> {
-                noteViewModel?.deleteAllNotes()
+                viewModel.deleteAllNotes()
                 Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun getViewModelClass(): Class<NoteViewModel> {
+        return NoteViewModel::class.java
     }
 
     companion object {

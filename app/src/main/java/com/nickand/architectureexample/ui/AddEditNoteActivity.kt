@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Toast
 import com.nickand.architectureexample.R
+import kotlinx.android.synthetic.main.activity_add_note.*
 
 class AddEditNoteActivity : AppCompatActivity() {
 
@@ -21,10 +22,6 @@ class AddEditNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
 
-        editTextTitle = findViewById(R.id.edit_text_title)
-        editTextDescription = findViewById(R.id.edit_text_description)
-        numberPickerPriority = findViewById(R.id.number_picker_priority)
-
         numberPickerPriority.minValue = 1
         numberPickerPriority.maxValue = 10
 
@@ -34,9 +31,9 @@ class AddEditNoteActivity : AppCompatActivity() {
 
         if (intent.hasExtra(EXTRA_ID)) {
             title = "Edit Note"
-            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE))
-            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION))
-            numberPickerPriority.value = intent.getIntExtra(EXTRA_PRIORITY, 1)
+            edit_text_title.setText(intent.getStringExtra(EXTRA_TITLE))
+            edit_text_description.setText(intent.getStringExtra(EXTRA_DESCRIPTION))
+            number_picker_priority.value = intent.getIntExtra(EXTRA_PRIORITY, 1)
         } else {
             title = "Add Note"
         }
