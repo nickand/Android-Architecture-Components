@@ -22,8 +22,8 @@ class AddEditNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
 
-        numberPickerPriority.minValue = 1
-        numberPickerPriority.maxValue = 10
+        number_picker_priority.minValue = 1
+        number_picker_priority.maxValue = 10
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
@@ -40,9 +40,9 @@ class AddEditNoteActivity : AppCompatActivity() {
     }
 
     private fun saveNote() {
-        val title = editTextTitle.text.toString()
-        val description = editTextDescription.text.toString()
-        val priority = numberPickerPriority.value
+        val title = edit_text_title.text.toString()
+        val description = edit_text_description.text.toString()
+        val priority = number_picker_priority.value
 
         if (title.trim().isEmpty() || description.isEmpty()) {
             Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show()

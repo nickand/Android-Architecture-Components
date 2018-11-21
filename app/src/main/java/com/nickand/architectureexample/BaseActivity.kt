@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-abstract class BaseActivity<out T: ViewModel> : AppCompatActivity() {
+abstract class BaseActivity<out T: ViewModel> : AppCompatActivity(), BaseView<T> {
 
-    val viewModel: T by lazy {
+    override val viewModel: T by lazy {
         ViewModelProviders.of(this).get(getViewModelClass())
     }
 
@@ -17,7 +17,6 @@ abstract class BaseActivity<out T: ViewModel> : AppCompatActivity() {
 
     }
 
-    abstract fun getViewModelClass() : Class<out T>
     abstract fun getLayoutResId(): Int
 
 }
